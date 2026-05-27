@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:5000/api/links'
+const BASE_URL = `${import.meta.env.VITE_API_URL}/api/links`
 export const getLinks = (token) =>
   axios.get(BASE_URL, {
     headers: { Authorization: `Bearer ${token}` }
