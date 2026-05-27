@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Link = require('../models/Link')
+const Link = require('../models/link')
 const authMiddleware = require('../middleware/authMiddleware')
 
 router.get('/', authMiddleware, async (req, res) => {
