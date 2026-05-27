@@ -4,7 +4,11 @@ const cors = require('cors')
 const dotenv = require('dotenv')
 const authRoutes = require('./routes/auth')
 const linkRoutes = require('./routes/links')
-dotenv.config()
+dotenv.config({
+  path: process.env.NODE_ENV === 'production'
+    ? '.env'
+    : '../.env'
+})
 const app = express()
 app.use(cors())
 app.use(express.json())
