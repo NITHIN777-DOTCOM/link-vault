@@ -1,0 +1,351 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+.dark {
+  --bg: #111111;
+  --surface: #1a1a1a;
+  --border: #2a2a2a;
+  --text: #f0f0f0;
+  --subtext: #888;
+  --accent: cadetblue;
+  --btn: #ffffff;
+  --btn-text: #111;
+  --danger: #ff4444;
+  --input-bg: #1f1f1f;
+}
+
+.light {
+  --bg: #f5f5f5;
+  --surface: #ffffff;
+  --border: #e0e0e0;
+  --text: #111111;
+  --subtext: #666;
+  --accent: #cadetblue;
+  --btn: #111111;
+  --btn-text: #ffffff;
+  --danger: #cc0000;
+  --input-bg: #f9f9f9;
+}
+
+.app {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.2s, color 0.2s;
+}
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 36px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.auth-box h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.auth-sub {
+  color: var(--subtext);
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+.auth-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.auth-box label {
+  font-size: 13px;
+  color: var(--subtext);
+  margin-top: 10px;
+}
+
+.auth-box input {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+}
+
+.auth-box input:focus {
+  border-color: var(--accent);
+}
+
+.auth-box button[type='submit'] {
+  margin-top: 18px;
+  padding: 10px;
+  background: var(--btn);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.switch {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--subtext);
+  text-align: center;
+}
+
+.switch a {
+  color: var(--text);
+  text-decoration: underline;
+}
+
+.error {
+  font-size: 13px;
+  color: var(--danger);
+  margin-bottom: 10px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 28px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.nav-brand {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.nav-user {
+  font-size: 13px;
+  color: var(--subtext);
+}
+
+.toggle-btn {
+  color: var(--text);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logout-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.dashboard {
+  max-width: 680px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.add-btn {
+  background: var(--btn);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.search {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 14px;
+  margin-bottom: 20px;
+  outline: none;
+}
+
+.search:focus {
+  border-color: var(--accent);
+}
+
+.empty {
+  color: var(--subtext);
+  font-size: 14px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.link-name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.link-name:hover {
+  text-decoration: underline;
+}
+
+.link-desc {
+  font-size: 13px;
+  color: var(--subtext);
+  margin-top: 4px;
+}
+
+.link-url {
+  font-size: 12px;
+  color: var(--subtext);
+  margin-top: 4px;
+  display: block;
+}
+
+.delete-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  color: var(--subtext);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.delete-btn:hover {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 28px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.modal h3 {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.modal label {
+  font-size: 13px;
+  color: var(--subtext);
+  margin-top: 8px;
+}
+
+.modal input {
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--input-bg);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+}
+
+.modal input:focus {
+  border-color: var(--accent);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-btn {
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.modal-actions button[type='submit'] {
+  background: var(--btn);
+  color: var(--btn-text);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 13px;
+  cursor: pointer;
+}
