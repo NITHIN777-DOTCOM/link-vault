@@ -10,7 +10,13 @@ dotenv.config({
     : '../.env'
 })
 const app = express()
-app.use(cors())
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://link-vault-beta-one.vercel.app'
+  ],
+  credentials: true
+}))
 app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/links', linkRoutes)
