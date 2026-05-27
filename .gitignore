@@ -1,3 +1,5 @@
 # .gitignore (root level)
 node_modules/
 .env
+cloud_credentials.png
+new_password.png
