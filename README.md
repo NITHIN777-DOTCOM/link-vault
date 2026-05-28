@@ -2,10 +2,13 @@
 
 A full-stack web app to save and organize your important links — built with the MERN stack.
 
-## Live Demo
-🔗 [linkvault.vercel.app](#) ← update this after deployment
+# Live Demo
 
-![Dashboard Preview](preview.png) ← add a screenshot later
+Frontend: https://link-vault-beta-one.vercel.app
+
+Backend API: https://link-vault-backend-w18w.onrender.com
+
+![Dashboard Preview](preview.png) 
 
 ## Features
 
@@ -94,5 +97,6 @@ App runs at `http://localhost:5173`
 
 ## Author
 
-**Your Name**  
-[GitHub](https://github.com/yourusername) · [LinkedIn](https://linkedin.com/in/yourprofile)
+Nithin
+[GitHub](https://github.com/NITHIN777-DOTCOM)
+[LinkedIn](https://www.linkedin.com/in/nithin-r-876b5b373/)
