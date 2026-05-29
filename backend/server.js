@@ -18,6 +18,7 @@ app.use(cors({
   credentials: true
 }))
 app.use(express.json())
+app.get('/health', (req, res) => res.status(200).json({ status: 'ok' })) //Health check in uptimerobot
 app.use('/api/auth', authRoutes)
 app.use('/api/links', linkRoutes)
 const PORT = process.env.PORT || 5000
