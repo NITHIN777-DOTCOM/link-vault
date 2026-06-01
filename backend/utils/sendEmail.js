@@ -1,19 +1,26 @@
-const { Resend } = require('resend')
-
-const resend = new Resend(process.env.RESEND_API_KEY)
+const nodemailer = require('nodemailer')
 
 const sendEmail = async (to, otp) => {
-  await resend.emails.send({
-    from: 'LinkVault <onboarding@resend.dev>',
+  const transporter = nodemailer.createTransport({
+    host: 'smtp-relay.brevo.com',
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.BREVO_USER,
+      pass: process.env.BREVO_PASS
+    }
+  })
+
+  await transporter.sendMail({
+    from: '"LinkVault" <your_brevo_email>',
     to,
     subject: 'Your LinkVault Password Reset OTP',
     html: `
       <div style="font-family: sans-serif; max-width: 400px; margin: auto;">
         <h2>Password Reset</h2>
-        <p>Your OTP to reset your password is:</p>
+        <p>Your OTP is:</p>
         <h1 style="letter-spacing: 8px; color: #111;">${otp}</h1>
-        <p>This OTP expires in <strong>10 minutes</strong>.</p>
-        <p>If you didn't request this, ignore this email.</p>
+        <p>Expires in <strong>10 minutes</strong>.</p>
       </div>
     `
   })
