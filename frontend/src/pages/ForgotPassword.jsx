@@ -14,6 +14,8 @@ const ForgotPassword = () => {
   const handleSendOtp = async (e) => {
     e.preventDefault()
     console.log('clicked', email)
+    console.log('API URL:', import.meta.env.VITE_API_URL)
+    console.log('email:', email)
     setError('')
     try {
       await forgotPassword({ email })
