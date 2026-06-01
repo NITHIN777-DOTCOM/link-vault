@@ -56,4 +56,86 @@ router.post('/login', async (req, res) => {
   }
 })
 
+const sendEmail = require('../utils/sendEmail')
+
+router.post('/forgot-password', async (req, res) => {
+  try {
+    const { email } = req.body
+
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res.status(404).json({ message: 'No account with that email' })
+    }
+
+    const otp = Math.floor(100000 + Math.random() * 900000).toString()
+
+    const otpExpiry = new Date(Date.now() + 10 * 60 * 1000)
+
+    user.otp = otp
+    user.otpExpiry = otpExpiry
+    await user.save()
+
+    await sendEmail(email, otp)
+
+    res.status(200).json({ message: 'OTP sent to your email' })
+
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message })
+  }
+})
+
+router.post('/verify-otp', async (req, res) => {
+  try {
+    const { email, otp } = req.body
+
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' })
+    }
+    if (user.otpExpiry < new Date()) {
+      return res.status(400).json({ message: 'OTP expired' })
+    }
+
+    res.status(200).json({ message: 'OTP verified' })
+
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message })
+  }
+})
+
+router.post('/reset-password', async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body
+
+    const user = await User.findOne({ email })
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' })
+    }
+
+    if (user.otp !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' })
+    }
+
+    if (user.otpExpiry < new Date()) {
+      return res.status(400).json({ message: 'OTP expired' })
+    }
+    const salt = await bcrypt.genSalt(10)
+    user.password = await bcrypt.hash(newPassword, salt)
+
+    user.otp = null
+    user.otpExpiry = null
+
+    await user.save()
+
+    res.status(200).json({ message: 'Password reset successful' })
+
+  } catch (err) {
+    res.status(500).json({ message: 'Server error', error: err.message })
+  }
+})
+
 module.exports = router
