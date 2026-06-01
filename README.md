@@ -18,6 +18,7 @@ Backend API: https://link-vault-backend-w18w.onrender.com
 - Search links by name instantly
 - Dark / light mode toggle
 - Protected routes on both frontend and backend
+- Forgot password with OTP email verification
 
 ## Tech Stack
 
