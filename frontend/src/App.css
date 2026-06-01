@@ -119,6 +119,12 @@
   margin-bottom: 10px;
 }
 
+.success {
+  font-size: 13px;
+  color: #22c55e;
+  margin-bottom: 10px;
+}
+
 .navbar {
   display: flex;
   align-items: center;

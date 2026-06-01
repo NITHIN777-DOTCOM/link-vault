@@ -33,6 +33,9 @@ const Login = () => {
           <label>Password</label>
           <input type='password' value={password} onChange={e => setPassword(e.target.value)} required />
           <button type='submit'>Sign in</button>
+          <p className='switch'>
+          <Link to='/forgot-password'>Forgot password?</Link>
+          </p>
         </form>
         <p className='switch'>Don't have an account? <Link to='/register'>Register</Link></p>
       </div>
