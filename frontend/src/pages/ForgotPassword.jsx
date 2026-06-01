@@ -13,6 +13,7 @@ const ForgotPassword = () => {
 
   const handleSendOtp = async (e) => {
     e.preventDefault()
+    console.log('clicked', email)
     setError('')
     try {
       await forgotPassword({ email })
