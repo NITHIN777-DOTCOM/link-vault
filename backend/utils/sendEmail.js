@@ -1,10 +1,7 @@
-const SibApiV3Sdk = require('@getbrevo/brevo')
+const axios = require('axios')
 
 const sendEmail = async (to, otp) => {
-  const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi()
-  apiInstance.authentications['api-key'].apiKey = process.env.BREVO_API_KEY
-
-  const sendSmtpEmail = {
+  await axios.post('https://api.brevo.com/v3/smtp/email', {
     sender: { name: 'LinkVault', email: 'nithinthegreat06@gmail.com' },
     to: [{ email: to }],
     subject: 'Your LinkVault Password Reset OTP',
@@ -17,9 +14,12 @@ const sendEmail = async (to, otp) => {
         <p>If you didn't request this, ignore this email.</p>
       </div>
     `
-  }
-
-  await apiInstance.sendTransacEmail(sendSmtpEmail)
+  }, {
+    headers: {
+      'api-key': process.env.BREVO_API_KEY,
+      'Content-Type': 'application/json'
+    }
+  })
 }
 
 module.exports = sendEmail
