@@ -6,7 +6,7 @@ const sendEmail = async (to, otp) => {
     from: 'LinkVault <onboarding@resend.dev>',
     to,
     subject: 'Your LinkVault Password Reset OTP',
-    htmlContent: `<div style="font-family: sans-serif; max-width: 400px; margin: auto;">
+    html: `<div style="font-family: sans-serif; max-width: 400px; margin: auto;">
         <h2>Password Reset</h2>
         <p>Your OTP is:</p>
         <h1 style="letter-spacing: 8px; color: #111;">${otp}</h1>
