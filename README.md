@@ -40,6 +40,7 @@ Backend API: https://link-vault-backend-w18w.onrender.com
 
 ## Architecture
 
+```
 ┌──────────────────────┐        HTTPS/JSON        ┌──────────────────────┐
 │                      │ ────────────────────────> │                      │
 │      Frontend        │                            │       Backend        │
@@ -67,6 +68,7 @@ Backend API: https://link-vault-backend-w18w.onrender.com
            │                                          └────────────────────┘
 
 API Docs: link-vault-backend-w18w.onrender.com/api-docs (Swagger UI)
+```
 
 ## Project Structure
 
