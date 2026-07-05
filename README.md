@@ -20,11 +20,8 @@ Backend API: https://link-vault-backend-w18w.onrender.com
 - Search links by name, description, and URL with pagination
 - Dark / light mode toggle
 - Protected routes on both frontend and backend
-<<<<<<< HEAD
 - Forgot password with OTP email verification
 - API documentation with Swagger/OpenAPI at `/api-docs`
-=======
->>>>>>> 391ab9bf520d83109bf4d4933657cbc598799802
 
 ## Tech Stack
 
@@ -40,6 +37,36 @@ Backend API: https://link-vault-backend-w18w.onrender.com
 - MongoDB + Mongoose
 - JWT (jsonwebtoken)
 - bcryptjs
+
+## Architecture
+
+┌──────────────────────┐        HTTPS/JSON        ┌──────────────────────┐
+│                      │ ────────────────────────> │                      │
+│      Frontend        │                            │       Backend        │
+│   (React + Vite)     │ <──────────────────────── │   (Node + Express)   │
+│  link-vault-beta-    │      Access Token          │  link-vault-backend- │
+│  one.vercel.app      │      (Authorization        │  w18w.onrender.com   │
+│                      │       header, 15 min)      │                      │
+└──────────┬───────────┘                            └──────────┬───────────┘
+           │                                                   │
+           │         httpOnly Refresh Cookie (7 days)          │
+           │ <─────────────────────────────────────────────── │
+           │                                                   │
+           │                                          ┌────────▼──────────┐
+           │                                          │                    │
+           │                                          │   MongoDB Atlas    │
+           │                                          │  (Users, Links)    │
+           │                                          │                    │
+           │                                          └────────┬──────────┘
+           │                                                   │
+           │                                          ┌────────▼──────────┐
+           │                                          │                    │
+           │                                          │   Resend (Email)   │
+           │                                          │  OTP / Password    │
+           │                                          │      Reset         │
+           │                                          └────────────────────┘
+
+API Docs: link-vault-backend-w18w.onrender.com/api-docs (Swagger UI)
 
 ## Project Structure
 
@@ -114,7 +141,7 @@ Interactive Swagger/OpenAPI documentation is available at **`/api-docs`** on bot
 
 Documentation includes request/response schemas, authentication requirements, and example payloads for all endpoints.
 
-## What I Learned
+## Engineering Highlights
 
 ### Ownership Checks at the Database Query Level, Not After Fetching
 
