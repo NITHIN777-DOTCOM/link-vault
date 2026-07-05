@@ -1,32 +1,67 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { getLinks } from '../api/linksApi'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../context/useAuth'
 import Navbar from '../components/Navbar'
 import LinkCard from '../components/LinkCard'
 import AddLinkModal from '../components/AddLinkModal'
 
+const PAGE_LIMIT = 10
+
 const Dashboard = ({ darkMode, toggleDark }) => {
-  const { token, user } = useAuth()
+  const { user } = useAuth()
   const [links, setLinks] = useState([])
   const [search, setSearch] = useState('')
   const [showModal, setShowModal] = useState(false)
+  const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
+  const [totalPages, setTotalPages] = useState(0)
 
-  const fetchLinks = async () => {
+  const fetchLinks = useCallback(async () => {
     try {
-      const res = await getLinks(token)
-      setLinks(res.data)
+      const res = await getLinks({
+        page,
+        limit: PAGE_LIMIT,
+        search
+      })
+
+      setLinks(res.data.links)
+      setTotal(res.data.total)
+      setTotalPages(res.data.totalPages)
     } catch (err) {
       console.log(err)
     }
-  }
+  }, [page, search])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     fetchLinks()
-  }, [])
+  }, [fetchLinks])
 
-  const filtered = links.filter(l =>
-    l.name.toLowerCase().includes(search.toLowerCase())
-  )
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value)
+    setPage(1)
+  }
+
+  const handleLinkDeleted = () => {
+    if (links.length === 1 && page > 1) {
+      setPage(page - 1)
+      return
+    }
+
+    fetchLinks()
+  }
+
+  const handleLinkAdded = () => {
+    setShowModal(false)
+
+    if (page === 1 && search === '') {
+      fetchLinks()
+      return
+    }
+
+    setSearch('')
+    setPage(1)
+  }
 
   return (
     <div className='page'>
@@ -38,18 +73,39 @@ const Dashboard = ({ darkMode, toggleDark }) => {
         </div>
         <input
           className='search'
-          placeholder='Search by name...'
+          placeholder='Search links...'
           value={search}
-          onChange={e => setSearch(e.target.value)}
+          onChange={handleSearchChange}
         />
-        {filtered.length === 0
+        {links.length === 0
           ? <p className='empty'>No links found.</p>
-          : filtered.map(link => (
-            <LinkCard key={link._id} link={link} token={token} onDelete={fetchLinks} />
+          : links.map(link => (
+            <LinkCard key={link._id} link={link} onDelete={handleLinkDeleted} />
           ))
         }
+        {totalPages > 1 && (
+          <div className='pagination'>
+            <button
+              className='page-btn'
+              disabled={page === 1}
+              onClick={() => setPage(page - 1)}
+            >
+              Previous
+            </button>
+            <span className='page-status'>
+              Page {page} of {totalPages} - {total} links
+            </span>
+            <button
+              className='page-btn'
+              disabled={page === totalPages}
+              onClick={() => setPage(page + 1)}
+            >
+              Next
+            </button>
+          </div>
+        )}
       </div>
-      {showModal && <AddLinkModal token={token} onClose={() => setShowModal(false)} onAdd={fetchLinks} />}
+      {showModal && <AddLinkModal onClose={() => setShowModal(false)} onAdd={handleLinkAdded} />}
     </div>
   )
 }

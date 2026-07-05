@@ -1,12 +1,12 @@
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../context/useAuth'
 import { useNavigate } from 'react-router-dom'
 
 const Navbar = ({ user, darkMode, toggleDark }) => {
   const { logout } = useAuth()
   const navigate = useNavigate()
 
-  const handleLogout = () => {
-    logout()
+  const handleLogout = async () => {
+    await logout()
     navigate('/login')
   }
 

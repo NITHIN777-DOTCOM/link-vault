@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { addLink } from '../api/linksApi'
 
-const AddLinkModal = ({ token, onClose, onAdd }) => {
+const AddLinkModal = ({ onClose, onAdd }) => {
   const [form, setForm] = useState({ name: '', description: '', url: '' })
   const [error, setError] = useState('')
 
@@ -10,7 +10,7 @@ const AddLinkModal = ({ token, onClose, onAdd }) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      await addLink(form, token)
+      await addLink(form)
       onAdd()
       onClose()
     } catch (err) {

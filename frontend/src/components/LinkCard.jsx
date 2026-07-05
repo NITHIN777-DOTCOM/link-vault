@@ -1,9 +1,9 @@
 import { deleteLink } from '../api/linksApi'
 
-const LinkCard = ({ link, token, onDelete }) => {
+const LinkCard = ({ link, onDelete }) => {
   const handleDelete = async () => {
     try {
-      await deleteLink(link._id, token)
+      await deleteLink(link._id)
       onDelete()
     } catch (err) {
       console.log(err)

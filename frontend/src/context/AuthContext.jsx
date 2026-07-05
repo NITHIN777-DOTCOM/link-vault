@@ -1,6 +1,6 @@
-import { createContext, useContext, useState } from 'react'
-
-const AuthContext = createContext()
+import { useState } from 'react'
+import apiClient from '../api/client'
+import { AuthContext } from './authContextValue'
 
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || null)
@@ -11,7 +11,13 @@ export const AuthProvider = ({ children }) => {
     setToken(token)
     setUser(user)
   }
-  const logout = () => {
+  const logout = async () => {
+    try {
+      await apiClient.post('/auth/logout')
+    } catch (err) {
+      console.log(err)
+    }
+
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     setToken(null)
@@ -23,4 +29,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   )
 }
-export const useAuth = () => useContext(AuthContext)

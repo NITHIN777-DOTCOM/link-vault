@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { loginUser } from '../api/authApi'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../context/useAuth'
 
 const Login = () => {
   const [email, setEmail] = useState('')
@@ -14,7 +14,7 @@ const Login = () => {
     e.preventDefault()
     try {
       const res = await loginUser({ email, password })
-      login(res.data.token, { userId: res.data.userId, username: res.data.username })
+      login(res.data.accessToken, { userId: res.data.userId, username: res.data.username })
       navigate('/dashboard')
     } catch (err) {
       setError(err.response?.data?.message || 'Something went wrong')
