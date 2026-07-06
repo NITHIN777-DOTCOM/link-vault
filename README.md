@@ -38,6 +38,38 @@ Backend API: https://link-vault-backend-w18w.onrender.com
 - JWT (jsonwebtoken)
 - bcryptjs
 
+## Architecture
+
+```
+┌──────────────────────┐        HTTPS/JSON        ┌──────────────────────┐
+│                      │ ────────────────────────> │                      │
+│      Frontend        │                            │       Backend        │
+│   (React + Vite)     │ <──────────────────────── │   (Node + Express)   │
+│  link-vault-beta-    │      Access Token          │  link-vault-backend- │
+│  one.vercel.app      │      (Authorization        │  w18w.onrender.com   │
+│                      │       header, 15 min)      │                      │
+└──────────┬───────────┘                            └──────────┬───────────┘
+           │                                                   │
+           │         httpOnly Refresh Cookie (7 days)          │
+           │ <─────────────────────────────────────────────── │
+           │                                                   │
+           │                                          ┌────────▼──────────┐
+           │                                          │                    │
+           │                                          │   MongoDB Atlas    │
+           │                                          │  (Users, Links)    │
+           │                                          │                    │
+           │                                          └────────┬──────────┘
+           │                                                   │
+           │                                          ┌────────▼──────────┐
+           │                                          │                    │
+           │                                          │   Resend (Email)   │
+           │                                          │  OTP / Password    │
+           │                                          │      Reset         │
+           │                                          └────────────────────┘
+
+API Docs: link-vault-backend-w18w.onrender.com/api-docs (Swagger UI)
+```
+
 ## Project Structure
 
 ```
@@ -111,7 +143,7 @@ Interactive Swagger/OpenAPI documentation is available at **`/api-docs`** on bot
 
 Documentation includes request/response schemas, authentication requirements, and example payloads for all endpoints.
 
-## What I Learned
+## Engineering Highlights
 
 ### Ownership Checks at the Database Query Level, Not After Fetching
 
