@@ -18,6 +18,24 @@ const linkSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true
+  },
+  tags: {
+    type: [String],
+    default: []
+  },
+  collectionId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Collection',
+    default: null
+  },
+  favorite: {
+    type: Boolean,
+    default: false
+  },
+  status: {
+    type: String,
+    enum: ['active', 'archived'],
+    default: 'active'
   }
 }, { timestamps: true })
 

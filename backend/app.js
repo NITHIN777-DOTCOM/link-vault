@@ -12,6 +12,7 @@ dotenv.config({
 
 const authRoutes = require('./routes/auth')
 const linkRoutes = require('./routes/links')
+const collectionRoutes = require('./routes/collections')
 
 const app = express()
 
@@ -28,5 +29,6 @@ app.get('/health', (req, res) => res.status(200).json({ status: 'ok' }))
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 app.use('/api/auth', authRoutes)
 app.use('/api/links', linkRoutes)
+app.use('/api/collections', collectionRoutes)
 
 module.exports = app
